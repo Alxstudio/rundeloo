@@ -47,6 +47,12 @@ Binding decisions. Mirror of the Decision Log in Notion. Newest phase last. If a
 - Conventional Commits in English.
 - **In Vercel (Phase 7), set `main` as Production Branch explicitly**, or it would deploy `develop`.
 
+## Claude Code tooling (2026-11-09)
+
+- Claude Code has **read-only access to Supabase and Figma** in this repo; write tools are denied in `.claude/settings.json`. It cannot run SQL against the remote project, so it sees the schema but not row data.
+- **Only Alex runs migrations and remote changes.** Claude prepares the file in `supabase/migrations/`.
+- All Claude Code configuration lives in `.claude/`, with `CLAUDE.md` at the repo root.
+
 ## Structure and routing (2026-11-09)
 
 - Three route groups: `(marketing)` landing, `(auth)` login/register/forgot/reset/onboarding (no sidebar), `(app)` authenticated app.
