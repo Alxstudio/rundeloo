@@ -19,7 +19,7 @@ Owner and developer: Alex Cortell (Alxstudio). Portfolio project aimed at the US
 | Routes and screen specs | `docs/screens.md` |
 | Every decision already taken | `docs/decisions.md` |
 
-Coding rules load automatically from `.claude/rules/` when you touch matching files. Workflows are skills: `/start-task`, `/finish-task`, `/log-decision`, `/new-screen`, `/db-migration`. The `reviewer` subagent checks a branch before the PR.
+Coding rules load automatically from `.claude/rules/` when you touch matching files. Workflows are skills: `/start-task`, `/finish-task`, `/log-decision`, `/new-screen`, `/db-migration`. The `reviewer` subagent checks a branch before the PR. Hooks in `.claude/hooks/` lint every edited file and block shell access to `.env` files, commits on `main` or `develop`, and Supabase CLI commands that change the remote project.
 
 `docs/decisions.md` is binding. If a request contradicts it, stop and say so before writing code.
 
