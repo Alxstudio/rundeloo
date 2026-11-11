@@ -53,6 +53,11 @@ Binding decisions. Mirror of the Decision Log in Notion. Newest phase last. If a
 - **Only Alex runs migrations and remote changes.** Claude prepares the file in `supabase/migrations/`.
 - All Claude Code configuration lives in `.claude/`, with `CLAUDE.md` at the repo root.
 
+## Design system (2026-11-11)
+
+- The Pro **locked** color is **Slate in light and Mist in dark** (was Mist in both). Mist on white is 2.6:1 and fails WCAG AA for text.
+- `cn()` uses **`clsx` + `tailwind-merge`**, not the `cn` package that `shadcn init` installs (0.x, released days before). Check imports after every `shadcn add`.
+
 ## Structure and routing (2026-11-09)
 
 - Three route groups: `(marketing)` landing, `(auth)` login/register/forgot/reset/onboarding (no sidebar), `(app)` authenticated app.
