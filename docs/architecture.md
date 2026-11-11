@@ -88,8 +88,10 @@ Every action validates input with Zod (same schema as the form) and checks owner
 
 - Supabase Auth (email + password). Recovery: `/forgot-password` → email → `/auth/callback` → `/reset-password`.
 - Not signed in + `(app)` route → `/login`.
-- Signed in + `profiles.onboarding_completed = false` → `/onboarding`.
-- Signed in + `(auth)` page (except onboarding) → `/dashboard`.
+- Signed in + `profiles.onboarding_completed = false` → `/onboarding` (from any protected route or login/register/forgot-password).
+- Signed in + onboarding done + `/login`, `/register`, `/forgot-password` or `/onboarding` → `/dashboard`. `/onboarding/ready` and `/reset-password` stay reachable.
+- If the profile can't be read, onboarding rules are skipped rather than locking the user out.
+- The rules live in `src/lib/route-access.ts` (pure, unit tested); `src/lib/supabase/proxy.ts` only reads the session and the profile.
 - Onboarding progress per step lives in `localStorage` (v1); completion is stored server-side in `profiles.onboarding_completed`.
 
 ## i18n (option B — no locale in the URL)
