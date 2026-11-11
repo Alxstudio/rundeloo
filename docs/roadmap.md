@@ -23,8 +23,8 @@ Target launch (not final): realistic **2026-12-15** · optimistic 2026-11-20 · 
 2. ~~Branching strategy~~ Done (2026-11-04). `develop` is the default branch; rulesets protect `main` and `develop`.
 3. ~~Folder structure~~ Done (2026-11-09). Includes `CLAUDE.md`, `docs/` and the Claude Code setup in `.claude/` (rules, skills, hooks, reviewer agent, settings).
 4. ~~Design system in code~~ Done (2026-11-11) on `feat/design-system`: shadcn/ui, tokens in `globals.css`, light and dark themes. See `docs/design.md`.
-5. **Supabase connection for Next.js 16** — next. Most of it already exists (`proxy.ts`, three clients, `requireUser`, `requirePro`): review it against the Next.js 16 docs, add the redirect to `/onboarding` when `profiles.onboarding_completed` is false, translate all existing Spanish code, comments and prompts to English, and set up Prettier and Vitest. The old A–F steps were written for Next.js 15 and are obsolete.
-6. i18n base (option B, no locale in the URL). See `docs/architecture.md`.
+5. ~~Supabase connection for Next.js 16~~ Done (2026-11-11) on `chore/supabase-connection`: reviewed `proxy.ts` and the three clients, onboarding redirect, code translated to English, Prettier and Vitest.
+6. **i18n base** — next. Option B, no locale in the URL. See `docs/architecture.md`.
 7. Migration: install the Supabase CLI as a dev dependency, version the current schema in `supabase/migrations/` (needs Docker Desktop running) and add `notes.pinned_at`, `applications.deadline`, `application_status_history`, `profiles.timezone`, and drop the `profiles.theme` default. See `docs/database.md`.
 8. Authentication and route protection.
 9. Core screens from the wireframes (`docs/screens.md`), plus `/privacy` and `/terms`. Logo from `public/brand/`, mobile bottom bar.
