@@ -33,7 +33,7 @@ npm run build   # production build, must pass before every commit
 
 ## Stack
 
-Next.js 16.4 (App Router, TypeScript, `src/`, Turbopack) · React 19 · Tailwind CSS v4 · shadcn/ui · TipTap · Supabase (Postgres 17 + pgvector, Auth) · Claude API · Voyage AI embeddings · Stripe · Vercel (EU region) · Cloudflare (domain).
+Next.js 16.4 (App Router, TypeScript, `src/`, Turbopack) · React 19 · Tailwind CSS v4 · shadcn/ui · TipTap · Supabase (Postgres 17 + pgvector, Auth) · AI behind a provider layer (Ollama in development, production provider chosen in Phase 7) · Stripe · Vercel (EU region) · Cloudflare (domain). Goal: zero running cost except the domain.
 
 ## How we work
 

@@ -1,6 +1,6 @@
 # Decision log
 
-Binding decisions. Mirror of the Decision Log in Notion. Newest phase last. If a task needs to change one of these, stop and ask Alex first.
+Binding decisions. This file is the single source of truth (the Notion Decision Log is no longer kept in sync). Newest phase last. If a task needs to change one of these, stop and ask Alex first.
 
 ## Product
 
@@ -24,7 +24,7 @@ Binding decisions. Mirror of the Decision Log in Notion. Newest phase last. If a
 - Only `companies`, `notes` and user-level Pro tables carry `user_id`; others resolve ownership through foreign keys.
 - `subscriptions`, `weekly_summaries`, `question_bank` are **read-only for the client**.
 - Free/Pro limits enforced in the **server layer**, not the database.
-- `embedding` is **`vector(1024)` (Voyage AI)**. Changing it means re-embedding everything.
+- `embedding` is **`vector(1024)`**. The embedding model must output 1024 dimensions (candidate: Ollama `mxbai-embed-large`; Voyage AI was the earlier choice). Changing the model means re-embedding everything.
 - `on delete cascade` in the business chain, `set null` for note anchors and simulations.
 - **Pipeline order needs an explicit priority map** (offer, interview, applied, saved, on_hold, rejected). Never `ORDER BY status`: it silently sorts by enum creation order.
 - New columns: `notes.pinned_at timestamptz` and `applications.deadline date` (both nullable). `application_status_history` to be added before launch.
@@ -57,6 +57,19 @@ Binding decisions. Mirror of the Decision Log in Notion. Newest phase last. If a
 
 - The Pro **locked** color is **Slate in light and Mist in dark** (was Mist in both). Mist on white is 2.6:1 and fails WCAG AA for text.
 - `cn()` uses **`clsx` + `tailwind-merge`**, not the `cn` package that `shadcn init` installs (0.x, released days before). Check imports after every `shadcn add`.
+
+## Context review (2026-11-11)
+
+- **Zero running cost.** The only expense is the domain. Every service (hosting, AI, email, database) must fit a free tier that allows a commercial product. Stripe's per-payment fee is accepted.
+- **AI behind a provider layer** in `src/server/ai/`: features never call a vendor SDK directly. **Ollama in development**; the production provider is chosen in Phase 7 and must be free. Replaces "Claude API for all AI features".
+- **Free plan has no quantity limits.** Free = unlimited organization; Pro = AI features.
+- **Notifications are in-app only in v1** (alerts bell and dashboard). Reminder `sent` means shown in the app. Email is reserved for future product-wide announcements, which will need explicit opt-in and an unsubscribe link.
+- **`profiles.timezone`** (IANA name, e.g. `America/New_York`), detected from the browser on sign-up and editable in Settings. The server uses it for "today", weeks, the calendar and the weekly summary schedule.
+- **`profiles.theme` has no default:** null means "follow the device", set only when the user picks light or dark.
+- **Mobile navigation:** bottom bar with Dashboard, Applications, Calendar, Notes and "More" (Companies, Question bank, Weekly summary, Settings). Revisit as the product grows.
+- **Legal pages** `/privacy` and `/terms` in `(marketing)`, drafted by Claude and reviewed by Alex before real payments (Stripe and GDPR need them).
+- **All code, comments, error messages and prompts in English.** Existing Spanish code is translated in task 5.
+- **Tooling:** Prettier and Vitest from task 5, Playwright end-to-end tests in task 12, Supabase CLI as a dev dependency (task 7).
 
 ## Structure and routing (2026-11-09)
 
