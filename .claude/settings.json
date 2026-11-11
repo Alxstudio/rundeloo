@@ -106,9 +106,9 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/lint-file.mjs\"",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/format-and-lint.mjs\"",
             "timeout": 60,
-            "statusMessage": "Linting edited file"
+            "statusMessage": "Formatting and linting edited file"
           }
         ]
       }

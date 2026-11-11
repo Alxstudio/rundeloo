@@ -19,7 +19,7 @@ Owner and developer: Alex Cortell (Alxstudio). Portfolio project aimed at the US
 | Routes and screen specs | `docs/screens.md` |
 | Every decision already taken | `docs/decisions.md` |
 
-Coding rules load automatically from `.claude/rules/` when you touch matching files. Workflows are skills: `/start-task`, `/finish-task`, `/log-decision`, `/new-screen`, `/db-migration`. The `reviewer` subagent checks a branch before the PR. Hooks in `.claude/hooks/` lint every edited file and block shell access to `.env` files, commits on `main` or `develop`, and Supabase CLI commands that change the remote project.
+Coding rules load automatically from `.claude/rules/` when you touch matching files. Workflows are skills: `/start-task`, `/finish-task`, `/log-decision`, `/new-screen`, `/db-migration`. The `reviewer` subagent checks a branch before the PR. Hooks in `.claude/hooks/` format and lint every edited file and block shell access to `.env` files, commits on `main` or `develop`, and Supabase CLI commands that change the remote project.
 
 `docs/decisions.md` is binding. If a request contradicts it, stop and say so before writing code.
 
@@ -29,6 +29,8 @@ Coding rules load automatically from `.claude/rules/` when you touch matching fi
 npm run dev     # local dev server (Turbopack)
 npm run lint    # ESLint
 npm run build   # production build, must pass before every commit
+npm test        # Vitest unit tests
+npm run format  # Prettier (format:check to verify)
 ```
 
 ## Stack
@@ -45,7 +47,7 @@ Next.js 16.4 (App Router, TypeScript, `src/`, Turbopack) · React 19 · Tailwind
 - **Push and PRs:** push the feature branch only when asked. Never open, approve or merge PRs. Alex does that.
 - **Dependencies:** install only what the current task needs, and say why. No new libraries without asking.
 - **Ask first** before: schema changes, anything against the remote Supabase project, deleting files, rewriting Git history, or deviating from a documented decision.
-- **Definition of done:** `npm run lint` and `npm run build` pass, docs updated, short summary of what changed.
+- **Definition of done:** `npm run lint`, `npm test`, `npm run format:check` and `npm run build` pass, docs updated, short summary of what changed.
 - **Decision log:** decisions that condition later work or would cause real damage if forgotten are flagged as **DECISIÓN REGISTRADA EN EL LOG** and added to `docs/decisions.md` (use `/log-decision`). Don't log what is documented elsewhere.
 
 ## Git conventions
