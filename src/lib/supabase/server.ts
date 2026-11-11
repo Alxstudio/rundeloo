@@ -6,7 +6,7 @@ import { cookies } from "next/headers";
 import { getSupabasePublicEnv } from "@/lib/supabase/env";
 import type { Database } from "@/types/database";
 
-/** Cliente con la sesión del usuario: todas sus consultas pasan por RLS. */
+/** Client with the user's session: every query goes through RLS. */
 export async function createClient() {
   const cookieStore = await cookies();
   const { url, publishableKey } = getSupabasePublicEnv();
@@ -22,8 +22,8 @@ export async function createClient() {
             cookieStore.set(name, value, options),
           );
         } catch {
-          // Un Server Component no puede escribir cookies; src/proxy.ts ya
-          // refresca la sesión en cada navegación.
+          // A Server Component can't write cookies; src/proxy.ts already
+          // refreshes the session on every navigation.
         }
       },
     },

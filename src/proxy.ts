@@ -7,8 +7,8 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  // /api queda fuera a propósito: cada Route Handler aplica su propia
-  // autenticación (sesión, firma de Stripe o CRON_SECRET).
+  // /api is excluded on purpose: each Route Handler applies its own
+  // authentication (session, Stripe signature or CRON_SECRET).
   matcher: [
     "/((?!api/|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico)$).*)",
   ],

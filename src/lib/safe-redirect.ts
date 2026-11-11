@@ -1,6 +1,6 @@
 /**
- * Acepta solo rutas internas para evitar redirecciones abiertas:
- * "//evil.com" o "/\evil.com" los navegadores los tratan como otro dominio.
+ * Accepts internal paths only, to prevent open redirects:
+ * browsers treat "//evil.com" and "/\evil.com" as another domain.
  */
 export function safeRedirectPath(
   value: string | null | undefined,

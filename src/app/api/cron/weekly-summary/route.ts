@@ -17,6 +17,6 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }
 
-  // Pendiente: generar y guardar los resúmenes con createAdminClient().
+  // TODO: generate and store the summaries with createAdminClient().
   return NextResponse.json({ error: "not_implemented" }, { status: 501 });
 }
