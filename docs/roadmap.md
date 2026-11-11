@@ -1,6 +1,6 @@
 # Roadmap
 
-Last updated: 2026-11-09.
+Last updated: 2026-11-11.
 
 The project follows an 8-phase methodology. One phase at a time; a phase is not left until it is closed.
 
@@ -21,9 +21,9 @@ Target launch (not final): realistic **2026-12-15** · optimistic 2026-11-20 · 
 
 1. ~~Base project: Next.js 16.4, first push to `main`~~ Done.
 2. ~~Branching strategy~~ Done (2026-11-04). `develop` is the default branch; rulesets protect `main` and `develop`.
-3. **Folder structure** — in progress on `chore/folder-structure`. Includes `CLAUDE.md`, `docs/` and the Claude Code setup in `.claude/` (rules, skills, reviewer agent, settings).
-4. **Design system in code** — next. Init shadcn/ui; define tokens in `globals.css` (`@theme`): brand palette, Kanban status colors, type scale, spacing, radii, light and dark themes. See `docs/design.md`.
-5. Supabase connection for Next.js 16 (`proxy.ts`, three clients). The old A–F steps were written for Next.js 15 and are obsolete.
+3. ~~Folder structure~~ Done (2026-11-09). Includes `CLAUDE.md`, `docs/` and the Claude Code setup in `.claude/` (rules, skills, hooks, reviewer agent, settings).
+4. ~~Design system in code~~ Done (2026-11-11) on `feat/design-system`: shadcn/ui, tokens in `globals.css`, light and dark themes. See `docs/design.md`.
+5. **Supabase connection for Next.js 16** — next (`proxy.ts`, three clients). The old A–F steps were written for Next.js 15 and are obsolete.
 6. i18n base (option B, no locale in the URL). See `docs/architecture.md`.
 7. Migration: version the current schema in `supabase/migrations/` and add `notes.pinned_at`, `applications.deadline`, `application_status_history`. See `docs/database.md`.
 8. Authentication and route protection.

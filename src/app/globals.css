@@ -1,26 +1,199 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Dark mode follows the .dark class set by next-themes, not the OS media query. */
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design tokens. This file is the only place where raw color values live.
+ * Components use the semantic utilities (bg-background, text-muted-foreground,
+ * text-status-offer…), never the palette or hex values directly.
+ */
+
+@theme {
+  /* Brand palette (docs/design.md). Prefer semantic tokens in components. */
+  --color-ink: #0b0c0e;
+  --color-graphite: #16181d;
+  --color-steel: #2a2e36;
+  --color-slate: #5b6270;
+  --color-mist: #9aa1ae;
+  --color-fog: #d8dbe1;
+  --color-paper: #f4f5f7;
+  --color-white: #ffffff;
+
+  /* Extra-small size for sidebar section labels (11px). */
+  --text-2xs: 0.6875rem;
+  --text-2xs--line-height: 1rem;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-geist-sans);
+  --font-display: var(--font-unbounded);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* Pro features shown locked to free users. Always paired with a lock icon and text. */
+  --color-locked: var(--locked);
+
+  /* Pipeline statuses (application_status). Color is never the only signal: always show the label. */
+  --color-status-saved: var(--status-saved);
+  --color-status-applied: var(--status-applied);
+  --color-status-interview: var(--status-interview);
+  --color-status-offer: var(--status-offer);
+  --color-status-on-hold: var(--status-on-hold);
+  --color-status-rejected: var(--status-rejected);
+  --color-status-saved-subtle: color-mix(in oklch, var(--status-saved) 12%, transparent);
+  --color-status-applied-subtle: color-mix(in oklch, var(--status-applied) 12%, transparent);
+  --color-status-interview-subtle: color-mix(in oklch, var(--status-interview) 12%, transparent);
+  --color-status-offer-subtle: color-mix(in oklch, var(--status-offer) 12%, transparent);
+  --color-status-on-hold-subtle: color-mix(in oklch, var(--status-on-hold) 12%, transparent);
+  --color-status-rejected-subtle: color-mix(in oklch, var(--status-rejected) 12%, transparent);
+
+  /* Compact radii: 6px base (rounded-lg). */
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --radius: 0.375rem;
+
+  --background: var(--color-white);
+  --foreground: var(--color-ink);
+  --card: var(--color-white);
+  --card-foreground: var(--color-ink);
+  --popover: var(--color-white);
+  --popover-foreground: var(--color-ink);
+  --primary: var(--color-ink);
+  --primary-foreground: var(--color-white);
+  --secondary: var(--color-paper);
+  --secondary-foreground: var(--color-graphite);
+  --muted: var(--color-paper);
+  --muted-foreground: var(--color-slate);
+  --accent: var(--color-paper);
+  --accent-foreground: var(--color-graphite);
+  --destructive: oklch(0.55 0.2 27);
+  --border: var(--color-fog);
+  --input: var(--color-fog);
+  --ring: var(--color-slate);
+
+  --sidebar: var(--color-paper);
+  --sidebar-foreground: var(--color-ink);
+  --sidebar-primary: var(--color-ink);
+  --sidebar-primary-foreground: var(--color-white);
+  --sidebar-accent: var(--color-white);
+  --sidebar-accent-foreground: var(--color-ink);
+  --sidebar-border: var(--color-fog);
+  --sidebar-ring: var(--color-slate);
+
+  --chart-1: var(--color-ink);
+  --chart-2: var(--color-steel);
+  --chart-3: var(--color-slate);
+  --chart-4: var(--color-mist);
+  --chart-5: var(--color-fog);
+
+  --locked: var(--color-slate);
+
+  --status-saved: oklch(0.51 0.02 260);
+  --status-applied: oklch(0.52 0.16 255);
+  --status-interview: oklch(0.51 0.18 295);
+  --status-offer: oklch(0.5 0.12 155);
+  --status-on-hold: oklch(0.52 0.01 260);
+  --status-rejected: oklch(0.53 0.11 25);
+}
+
+.dark {
+  --background: var(--color-ink);
+  --foreground: var(--color-paper);
+  --card: var(--color-graphite);
+  --card-foreground: var(--color-paper);
+  --popover: var(--color-graphite);
+  --popover-foreground: var(--color-paper);
+  --primary: var(--color-paper);
+  --primary-foreground: var(--color-ink);
+  --secondary: var(--color-steel);
+  --secondary-foreground: var(--color-paper);
+  --muted: var(--color-graphite);
+  --muted-foreground: var(--color-mist);
+  --accent: var(--color-steel);
+  --accent-foreground: var(--color-paper);
+  --destructive: oklch(0.7 0.16 25);
+  --border: var(--color-steel);
+  --input: var(--color-steel);
+  --ring: var(--color-slate);
+
+  --sidebar: var(--color-graphite);
+  --sidebar-foreground: var(--color-paper);
+  --sidebar-primary: var(--color-paper);
+  --sidebar-primary-foreground: var(--color-ink);
+  --sidebar-accent: var(--color-steel);
+  --sidebar-accent-foreground: var(--color-paper);
+  --sidebar-border: var(--color-steel);
+  --sidebar-ring: var(--color-slate);
+
+  --chart-1: var(--color-paper);
+  --chart-2: var(--color-fog);
+  --chart-3: var(--color-mist);
+  --chart-4: var(--color-slate);
+  --chart-5: var(--color-steel);
+
+  --locked: var(--color-mist);
+
+  --status-saved: oklch(0.75 0.02 260);
+  --status-applied: oklch(0.75 0.12 255);
+  --status-interview: oklch(0.75 0.13 295);
+  --status-offer: oklch(0.77 0.12 155);
+  --status-on-hold: oklch(0.68 0.01 260);
+  --status-rejected: oklch(0.7 0.1 25);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  html {
+    @apply font-sans;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
 }

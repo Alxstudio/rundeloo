@@ -28,14 +28,35 @@ There is no high-fidelity design in Figma. The low-fi wireframes (Figma file "Ru
 | Geist | 400, 500, 600 | All app UI and in-app titles |
 | Geist Mono | 400, 500 | Labels, statuses, metrics, numbers |
 
-## To define in the design system task (Phase 6, task 4)
+## Design system (defined 2026-11-11)
 
-- Semantic tokens for shadcn/ui (background, foreground, muted, border, primary…) mapped to the palette, **light and dark** (`profiles.theme`).
-- Kanban / status colors for the six `application_status` values. On hold and rejected are visually dimmed.
-- Type scale, spacing scale, radii.
-- A `locked` state for Pro features: Mist text and icon, lock icon + "Unlock with Pro". **Never color alone** (accessibility).
+All tokens live in `src/app/globals.css`. Components use semantic tokens only — no raw hex. Coding rules are in `.claude/rules/ui.md`.
 
-All of it lives in `src/app/globals.css` (`@theme`). Components use tokens only — no raw hex.
+**Stack:** shadcn/ui (style `radix-nova`, Radix primitives, Lucide icons), `cn()` from `clsx` + `tailwind-merge`, `cva` for variants, `next-themes` for the theme.
+
+**Theme:** follows the OS until the user picks light or dark (`profiles.theme`); the `.dark` class switches every token.
+
+| Semantic token | Light | Dark |
+|---|---|---|
+| background | White | Ink |
+| foreground | Ink | Paper |
+| card, popover | White | Graphite |
+| primary (+ foreground) | Ink (White) | Paper (Ink) |
+| secondary, accent | Paper | Steel |
+| muted | Paper | Graphite |
+| muted-foreground | Slate | Mist |
+| border, input | Fog | Steel |
+| ring (focus) | Slate | Slate |
+| sidebar | Paper | Graphite |
+| locked | Slate | Mist |
+
+**Statuses:** neutral UI with one restrained hue per status. Saved grey, Applied blue, Interviewing violet, Offer green, On hold dimmed grey, Rejected dimmed red. Each has a text/dot token (`status-<status>`) and a 12% tint for pills (`status-<status>-subtle`), tuned per theme to pass 4.5:1. Always shown with the label.
+
+**Shape and density:** compact, Linear-like. Base radius 6px (`rounded-lg`), Tailwind's 4px spacing scale, controls 32px high by default.
+
+**Type:** Geist (`font-sans`) for UI and in-app titles, Geist Mono (`font-mono`) for labels, statuses and numbers, Unbounded (`font-display`) loaded only in `(marketing)`. Tailwind's type scale plus `text-2xs` (11px) for section labels.
+
+**Locked (Pro):** `text-locked` + lock icon + "Unlock with Pro". Never color alone.
 
 ## UI conventions
 
