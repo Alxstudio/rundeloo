@@ -36,6 +36,8 @@ if (result.status === 1) {
 }
 
 if (result.status !== 0) {
-  process.stderr.write(`ESLint could not run: ${result.stderr ?? result.error}\n`);
+  process.stderr.write(
+    `ESLint could not run: ${result.stderr ?? result.error}\n`,
+  );
   process.exit(1);
 }

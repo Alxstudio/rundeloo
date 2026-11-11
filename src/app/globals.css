@@ -77,12 +77,36 @@
   --color-status-offer: var(--status-offer);
   --color-status-on-hold: var(--status-on-hold);
   --color-status-rejected: var(--status-rejected);
-  --color-status-saved-subtle: color-mix(in oklch, var(--status-saved) 12%, transparent);
-  --color-status-applied-subtle: color-mix(in oklch, var(--status-applied) 12%, transparent);
-  --color-status-interview-subtle: color-mix(in oklch, var(--status-interview) 12%, transparent);
-  --color-status-offer-subtle: color-mix(in oklch, var(--status-offer) 12%, transparent);
-  --color-status-on-hold-subtle: color-mix(in oklch, var(--status-on-hold) 12%, transparent);
-  --color-status-rejected-subtle: color-mix(in oklch, var(--status-rejected) 12%, transparent);
+  --color-status-saved-subtle: color-mix(
+    in oklch,
+    var(--status-saved) 12%,
+    transparent
+  );
+  --color-status-applied-subtle: color-mix(
+    in oklch,
+    var(--status-applied) 12%,
+    transparent
+  );
+  --color-status-interview-subtle: color-mix(
+    in oklch,
+    var(--status-interview) 12%,
+    transparent
+  );
+  --color-status-offer-subtle: color-mix(
+    in oklch,
+    var(--status-offer) 12%,
+    transparent
+  );
+  --color-status-on-hold-subtle: color-mix(
+    in oklch,
+    var(--status-on-hold) 12%,
+    transparent
+  );
+  --color-status-rejected-subtle: color-mix(
+    in oklch,
+    var(--status-rejected) 12%,
+    transparent
+  );
 
   /* Compact radii: 6px base (rounded-lg). */
   --radius-sm: calc(var(--radius) * 0.6);

@@ -1,0 +1,9 @@
+# Generated or vendored
+.next/
+next-env.d.ts
+package-lock.json
+src/types/database.ts
+public/
+
+# Prose stays as written
+*.md

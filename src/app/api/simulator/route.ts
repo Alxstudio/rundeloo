@@ -103,7 +103,10 @@ export async function POST(request: Request) {
         const { error: saveError } = await supabase
           .from("interview_simulations")
           .update({
-            transcript: [...conversation, { role: "assistant", content: reply }],
+            transcript: [
+              ...conversation,
+              { role: "assistant", content: reply },
+            ],
             started_at: simulation.started_at ?? new Date().toISOString(),
           })
           .eq("id", simulationId)

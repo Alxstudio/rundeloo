@@ -46,12 +46,16 @@ if (ENV_FILE.test(command)) {
 }
 
 if (SUPABASE_REMOTE_WRITE.test(command)) {
-  block("this Supabase CLI command changes the remote project. Alex runs those.");
+  block(
+    "this Supabase CLI command changes the remote project. Alex runs those.",
+  );
 }
 
 if (GIT_COMMIT.test(command)) {
   const branch = currentBranch(input.cwd ?? process.cwd());
   if (PROTECTED_BRANCHES.has(branch)) {
-    block(`commits on ${branch} are not allowed. Create a working branch first.`);
+    block(
+      `commits on ${branch} are not allowed. Create a working branch first.`,
+    );
   }
 }
