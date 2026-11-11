@@ -101,8 +101,12 @@ question_bank (global, no owner)
 2. `notes.pinned_at timestamptz null` — sorts pinned notes; max 3 pinned, validated in the server.
 3. `applications.deadline date null` — powers the Deadlines metric and calendar.
 4. `application_status_history` — recommended before launch: history can't be recovered later. Feeds the Activity card.
+5. `profiles.timezone text null` — IANA time zone name, detected from the browser on sign-up. Drives "today", weeks, the calendar and the weekly summary schedule.
+6. `profiles.theme` — drop the `'light'` default. Null means "follow the device".
 
 Already present, no change needed: `profiles.onboarding_completed`, `profiles.language`.
+
+Possibly later (task 10, onboarding spec): sector and years of experience in `profiles`, in a separate migration.
 
 ## Parked for Phase 8
 

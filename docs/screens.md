@@ -1,18 +1,23 @@
 # Screens
 
-Specs come from the low-fi wireframes (Figma "Rundeloo Design", page Wireframes, frames numbered as below). Screens marked *no wireframe* are built in code following the existing patterns. Sample data in the wireframes uses "today = Mon, Oct 26".
+Specs come from the low-fi wireframes ([Figma "Rundeloo Design"](https://www.figma.com/design/ZN52qssDRIqIR2SP3B5qdv/Rundeloo-Design?node-id=0-1), page Wireframes, frames numbered as below). Screens marked *no wireframe* are built in code following the existing patterns. Sample data in the wireframes uses "today = Mon, Oct 26".
+
+**Wireframe coverage (checked 2026-11-11).** Drawn, desktop only: 02–04 and 07–18 (including 14 · Contacts and 18 · Suggested links), 21, 22. Empty frames, so *no wireframe*: 01 landing, 05–06 onboarding, 19 settings, 20 billing, the Study path tab of 10, Reminders in 14, M1, M2, the shared states (empty, loading, error, 404) and every mobile frame. The "Design System" and "UI (Alta Fidelidad)" pages are empty. The Study path and Reminders specs below are text only.
 
 ## App shell (`(app)/layout.tsx`)
 
 - **Sidebar (desktop):** groups Workspace (Dashboard, Applications, Companies, Calendar, Notes) and Prep (Question bank, Weekly summary · Pro), then Pinned notes (max 3), Recent (localStorage) and an Upgrade card at the bottom (Pro users see "Pro plan / Manage plan").
 - **Top bar:** breadcrumb, alerts bell with badge, account menu (Settings, Plan and billing).
-- **Mobile:** basic responsive; navigation pattern decided by Alex.
+- **Mobile:** basic responsive. Bottom bar with Dashboard, Applications, Calendar, Notes and "More" (Companies, Question bank, Weekly summary, Settings). To revisit as the product grows.
+- **Logo:** SVG files in `public/brand/` (`logo-on-light`, `logo-on-dark`, mark, wordmark and `icon` for the favicon).
 
 ## Routes
 
 | # | Screen | Route | Notes |
 |---|---|---|---|
 | 01 | Landing | `/` | Designed by Alex. No wireframe |
+| — | Privacy policy | `/privacy` | Added 2026-11-11. Text page in `(marketing)`. No wireframe |
+| — | Terms of service | `/terms` | Added 2026-11-11. Text page in `(marketing)`. No wireframe |
 | 02 | Register | `/register` | |
 | 03 | Login | `/login` | |
 | 04 | Forgot password | `/forgot-password` | |

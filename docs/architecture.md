@@ -108,8 +108,9 @@ profiles.language → cookie → Accept-Language → "en"
 
 ## AI
 
-- **Claude API** for onboarding, simulator, study path, weekly summary and link suggestions. Prompts live in `src/server/ai/prompts/`. The model answers in the user's `profiles.language`.
-- **Voyage AI** embeddings, `vector(1024)`, stored in `notes.embedding` (pgvector) for auto-linking. Changing the model or dimension means re-embedding everything.
+- **Provider layer:** every AI feature (onboarding, simulator, study path, weekly summary, link suggestions) calls an interface in `src/server/ai/`, never a vendor SDK directly. The provider is picked by configuration: **Ollama in development**, production provider chosen in Phase 7 (it must be free). Prompts live in `src/server/ai/prompts/`, in English. The model answers in the user's `profiles.language`.
+- **Embeddings** of 1024 dimensions stored in `notes.embedding` (pgvector) for auto-linking. Candidate model: Ollama `mxbai-embed-large`. Changing the model or dimension means re-embedding everything.
+- The current `claude.ts` and `embeddings.ts` (Claude and Voyage AI) predate this decision and are replaced by the provider layer when the AI features are built (task 11). Their environment variables change then.
 - Weekly summary: scheduled job every Monday (Vercel cron in Phase 7) → `/api/cron/weekly-summary`, protected with `CRON_SECRET`.
 - Simulator: streamed through a Route Handler. Live feedback is not stored; only the final `feedback_text` and `score`.
 
@@ -132,4 +133,4 @@ Stripe Checkout + webhook → writes `subscriptions` with the admin client. `sub
 
 ## Hosting
 
-Vercel (function region in Europe, next to Supabase `eu-central-1`) and Cloudflare for the domain. Set up in Phase 7.
+Vercel (function region in Europe, next to Supabase `eu-central-1`) and Cloudflare for the domain. Set up in Phase 7. The only accepted cost is the domain: confirm before launch that the hosting free tier allows a commercial product with payments, or move to one that does.
