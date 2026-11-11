@@ -55,6 +55,7 @@ Next.js 16.4 (App Router, TypeScript, `src/`, Turbopack) · React 19 · Tailwind
 - Branches from `develop`: `feat/`, `fix/`, `chore/` + kebab-case (`feat/kanban-board`).
 - Conventional Commits, imperative, lowercase: `feat(kanban): add drag and drop between columns`. Types: feat, fix, chore, refactor, docs, style, test, perf.
 - PRs into `develop` are **squash-merged** (PR title = commit message). `develop` → `main` is a **merge commit** on release (Fridays), titled `chore(release): YYYY-MM-DD`. Never squash `develop` into `main`.
+- **No AI attribution:** no `Co-Authored-By` trailer and no "Generated with Claude Code" line in commits or PR descriptions.
 
 ## Non-negotiables
 
