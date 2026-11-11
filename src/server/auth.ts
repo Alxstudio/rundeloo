@@ -5,7 +5,7 @@ import { cache } from "react";
 
 import { createClient } from "@/lib/supabase/server";
 
-/** Usuario validado contra Supabase, o null. Se memoriza por petición. */
+/** User validated with Supabase, or null. Memoized per request. */
 export const getUser = cache(async () => {
   const supabase = await createClient();
   const {
@@ -17,8 +17,8 @@ export const getUser = cache(async () => {
 });
 
 /**
- * Para páginas y Server Actions. Llámalo dentro de CADA acción: una acción es
- * un POST público y no hereda la comprobación de la página que la muestra.
+ * For pages and Server Actions. Call it inside EVERY action: an action is a
+ * public POST and doesn't inherit the check of the page that renders it.
  */
 export async function requireUser() {
   const user = await getUser();

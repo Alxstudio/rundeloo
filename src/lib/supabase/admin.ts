@@ -7,9 +7,9 @@ import { requireServerEnv } from "@/server/env";
 import type { Database } from "@/types/database";
 
 /**
- * Usa la clave secreta y SALTA las políticas RLS.
- * Solo para el webhook de Stripe, el cron y la escritura en question_bank.
- * Nunca lo uses en una acción con datos del usuario: filtra tú cada consulta.
+ * Uses the secret key and BYPASSES RLS policies.
+ * Only for the Stripe webhook, cron jobs and question_bank writes.
+ * Never use it in an action with user data: you would have to filter every query yourself.
  */
 export function createAdminClient() {
   const { url } = getSupabasePublicEnv();

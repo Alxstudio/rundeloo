@@ -31,8 +31,8 @@ function mapStatus(status: Stripe.Subscription.Status): SubscriptionStatus {
 }
 
 async function syncSubscription(subscriptionId: string) {
-  // Se relee de Stripe: así da igual que los eventos lleguen repetidos o
-  // desordenados, y nunca se escribe un estado antiguo.
+  // Re-read from Stripe: duplicated or out-of-order events don't matter,
+  // and a stale state is never written.
   const subscription = await getStripe().subscriptions.retrieve(subscriptionId);
   const supabase = createAdminClient();
   const customerId =
@@ -40,7 +40,7 @@ async function syncSubscription(subscriptionId: string) {
       ? subscription.customer
       : subscription.customer.id;
 
-  // metadata.user_id la fija el servidor al crear el Checkout.
+  // metadata.user_id is set by the server when it creates the Checkout.
   const metadataUserId = userIdSchema.safeParse(subscription.metadata.user_id);
   let userId = metadataUserId.success ? metadataUserId.data : null;
 
@@ -55,14 +55,16 @@ async function syncSubscription(subscriptionId: string) {
   }
 
   if (!userId) {
-    // Se lanza para que Stripe reintente y el caso quede a la vista.
-    throw new Error(`Suscripción sin usuario asociado: ${subscription.id}`);
+    // Thrown so Stripe retries and the case stays visible.
+    throw new Error(
+      `Subscription without an associated user: ${subscription.id}`,
+    );
   }
 
   const status = mapStatus(subscription.status);
 
   if (status === "canceled") {
-    // La baja de una suscripción antigua no debe quitar el plan a la nueva.
+    // Canceling an old subscription must not remove the plan from the new one.
     const { data, error } = await supabase
       .from("subscriptions")
       .select("stripe_subscription_id")
@@ -102,7 +104,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "invalid_signature" }, { status: 400 });
   }
 
-  // La firma se calcula sobre el cuerpo exacto: hay que leerlo como texto.
+  // The signature is computed over the exact body: it must be read as text.
   const body = await request.text();
   const stripe = getStripe();
 
@@ -125,8 +127,8 @@ export async function POST(request: Request) {
     const { id } = event.data.object as Stripe.Subscription;
     await syncSubscription(id);
   } catch (error) {
-    // Un 500 hace que Stripe reintente el evento más tarde.
-    console.error("Error en el webhook de Stripe", event.id, error);
+    // A 500 makes Stripe retry the event later.
+    console.error("Stripe webhook error", event.id, error);
     return NextResponse.json({ error: "processing_failed" }, { status: 500 });
   }
 

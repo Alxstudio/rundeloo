@@ -7,7 +7,7 @@ disable-model-invocation: true
 # Finish a task
 
 1. Confirm the current branch is a feature branch (`feat/`, `fix/`, `chore/`). If it's `main` or `develop`, stop.
-2. Run `npm run lint` and `npm run build`. If either fails, fix it and explain the cause. Don't continue until both pass.
+2. Run `npm run lint`, `npm test`, `npm run format:check` and `npm run build`. If either fails, fix it and explain the cause. Don't continue until both pass.
 3. Update the docs in the same branch:
    - `docs/roadmap.md`: mark the task done with today's date and set the next one.
    - Any doc whose content changed (`architecture.md`, `database.md`, `screens.md`, `design.md`).

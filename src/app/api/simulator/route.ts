@@ -28,7 +28,7 @@ export async function POST(request: Request) {
   if (!parsed.success) return fail("invalid_request", 400);
   const { simulationId, message } = parsed.data;
 
-  // El historial sale de la base de datos, nunca del cuerpo de la petición.
+  // The history comes from the database, never from the request body.
   const supabase = await createClient();
   const { data: simulation, error } = await supabase
     .from("interview_simulations")
@@ -96,14 +96,17 @@ export async function POST(request: Request) {
 
         const final = await claudeStream.finalMessage();
         if (final.stop_reason === "refusal" || !reply) {
-          throw new Error(`Turno no válido: ${final.stop_reason}`);
+          throw new Error(`Invalid turn: ${final.stop_reason}`);
         }
 
-        // Solo se guarda un turno completo; si falla, se puede repetir.
+        // Only a complete turn is saved; if it fails, it can be retried.
         const { error: saveError } = await supabase
           .from("interview_simulations")
           .update({
-            transcript: [...conversation, { role: "assistant", content: reply }],
+            transcript: [
+              ...conversation,
+              { role: "assistant", content: reply },
+            ],
             started_at: simulation.started_at ?? new Date().toISOString(),
           })
           .eq("id", simulationId)
@@ -112,7 +115,7 @@ export async function POST(request: Request) {
 
         controller.close();
       } catch (streamError) {
-        console.error("Error en el simulador", simulationId, streamError);
+        console.error("Simulator error", simulationId, streamError);
         controller.error(new Error("simulator_failed"));
       }
     },

@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const simulatorTurnSchema = z.strictObject({
   simulationId: z.uuid(),
-  // Opcional solo en el primer turno, cuando empieza el entrevistador.
+  // Optional only on the first turn, when the interviewer starts.
   message: z.string().trim().min(1).max(4000).optional(),
 });
 

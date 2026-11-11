@@ -11,7 +11,7 @@ const responseSchema = z.object({
   data: z.array(z.object({ embedding: z.array(z.number()) })).min(1),
 });
 
-/** Devuelve el vector de 1024 dimensiones que guarda notes.embedding. */
+/** Returns the 1024-dimension vector stored in notes.embedding. */
 export async function createEmbedding(
   input: string,
   inputType: "document" | "query",
@@ -32,12 +32,12 @@ export async function createEmbedding(
   });
 
   if (!response.ok) {
-    throw new Error(`Voyage AI respondió ${response.status}`);
+    throw new Error(`Voyage AI responded with ${response.status}`);
   }
 
   const { embedding } = responseSchema.parse(await response.json()).data[0];
   if (embedding.length !== EMBEDDING_DIMENSIONS) {
-    throw new Error("Voyage AI devolvió un vector de tamaño inesperado");
+    throw new Error("Voyage AI returned a vector of unexpected size");
   }
 
   return embedding;

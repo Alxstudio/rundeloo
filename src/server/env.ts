@@ -8,9 +8,9 @@ type ServerSecret =
   | "STRIPE_WEBHOOK_SECRET"
   | "CRON_SECRET";
 
-/** Falla de forma cerrada: un secreto ausente nunca debe abrir un endpoint. */
+/** Fails closed: a missing secret must never open an endpoint. */
 export function requireServerEnv(name: ServerSecret) {
   const value = process.env[name];
-  if (!value) throw new Error(`Falta la variable de entorno ${name}`);
+  if (!value) throw new Error(`Missing environment variable ${name}`);
   return value;
 }
